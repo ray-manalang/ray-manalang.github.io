@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ray Manalang</title>
+<meta name="description" content="Ray Manalang: enterprise systems leader with three decades at PeopleSoft, Oracle, and Workday, who still builds software.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%231d4e89'/><text x='32' y='42' font-family='Arial' font-size='26' font-weight='700' fill='white' text-anchor='middle'>RM</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,600;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f3f5f8;
+    --surface: #ffffff;
+    --ink: #142030;
+    --muted: #586677;
+    --rule: #d3dae2;
+    --grid: rgba(29, 78, 137, 0.08);
+    --accent: #1d4e89;
+    --accent-ink: #ffffff;
+    --accent-soft: #e2ebf6;
+    --band: #12355e;
+    --band-ink: #e8eff8;
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #121a24;
+      --surface: #19232f;
+      --ink: #e7ecf2;
+      --muted: #9dabba;
+      --rule: #2e3b4a;
+      --grid: rgba(140, 180, 230, 0.07);
+      --accent: #8cb4e6;
+      --accent-ink: #0f1c2c;
+      --accent-soft: #213349;
+      --band: #0c1622;
+      --band-ink: #d6e2f0;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  a:hover { text-decoration-thickness: 2px; }
+  a:focus-visible, .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  .wrap { max-width: 54rem; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* Hero with drafting grid */
+  .hero { position: relative; padding: 6.5rem 0 4.5rem; isolation: isolate; }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: center top;
+    -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent);
+            mask-image: linear-gradient(to bottom, #000 60%, transparent);
+  }
+  .hero h1 {
+    font-size: clamp(3rem, 9vw, 5.5rem);
+    font-weight: 900;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+    margin: 0 0 1.25rem;
+  }
+  .hero .role {
+    font-size: clamp(1.15rem, 2.4vw, 1.4rem);
+    font-weight: 600;
+    color: var(--accent);
+    margin: 0 0 1.5rem;
+  }
+  .hero .lede {
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.6;
+    margin: 0 0 2.25rem;
+  }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
+  .btn {
+    display: inline-block;
+    padding: 0.65rem 1.2rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.98rem;
+    text-decoration: none;
+    border: 1.5px solid var(--accent);
+    color: var(--accent);
+    background: var(--surface);
+    transition: background-color .15s ease, color .15s ease;
+  }
+  .btn:hover { background: var(--accent-soft); }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); }
+  .btn.primary:hover { filter: brightness(1.12); }
+
+  section { padding: 3.5rem 0; }
+  section + section { border-top: 1px solid var(--rule); }
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.75rem;
+  }
+  h3 { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 0.5rem; }
+  p { margin: 0 0 1rem; }
+
+  /* Results */
+  .results { margin: 0; padding: 0; list-style: none; display: grid; gap: 1.5rem; }
+  .results li { display: grid; grid-template-columns: 7rem 1fr; gap: 1.25rem; align-items: baseline; }
+  .results .fig {
+    font-size: 2.6rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .results .fig small { font-size: 0.5em; font-weight: 800; letter-spacing: 0; margin-left: 0.1em; }
+
+  /* Featured project */
+  .feature {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-top: 4px solid var(--accent);
+    border-radius: 10px;
+    padding: 2rem 2rem 1.75rem;
+    margin-bottom: 2rem;
+  }
+  .feature h3 { font-size: 1.45rem; }
+  .diagram {
+    margin: 1.75rem 0 1.5rem;
+    padding: 1.25rem;
+    border-radius: 8px;
+    background-color: var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 16px 16px;
+    overflow-x: auto;
+  }
+  .diagram svg { display: block; width: 100%; min-width: 520px; height: auto; }
+  .diagram figcaption { font-size: 0.9rem; color: var(--muted); margin-top: 0.75rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1rem; padding: 0; list-style: none; }
+  .chips li {
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  .feature .note { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.25rem; }
+
+  .projects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .project {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 1.4rem 1.4rem 1.2rem;
+  }
+  .project p { font-size: 0.98rem; margin: 0; color: var(--muted); }
+
+  /* How I build */
+  .how p { font-size: 1.12rem; }
+  .how p:first-of-type { font-size: 1.22rem; }
+
+  /* Career timeline */
+  .timeline { list-style: none; margin: 0; padding: 0 0 0 1.75rem; position: relative; }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 0.4rem; top: 0.5rem; bottom: 0.5rem;
+    width: 2px;
+    background: var(--rule);
+  }
+  .timeline li { position: relative; padding-bottom: 1.4rem; }
+  .timeline li:last-child { padding-bottom: 0; }
+  .timeline li::before {
+    content: "";
+    position: absolute;
+    left: -1.75rem; top: 0.45rem;
+    width: 0.8rem; height: 0.8rem;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--accent);
+    margin-left: 0.1rem;
+  }
+  .timeline li.current::before { background: var(--accent); }
+  .timeline .when { display: block; font-size: 0.9rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .timeline .what { font-weight: 600; }
+  .timeline .where { color: var(--muted); }
+
+  /* Footer band */
+  footer {
+    background: var(--band);
+    color: var(--band-ink);
+    padding: 3.5rem 0 4rem;
+    margin-top: 1rem;
+  }
+  footer h2 { color: #fff; margin-bottom: 0.75rem; }
+  footer p { margin-bottom: 1.75rem; opacity: 0.9; }
+  footer .btn { background: transparent; color: var(--band-ink); border-color: rgba(232, 239, 248, 0.5); }
+  footer .btn:hover { background: rgba(255,255,255,0.08); }
+  footer .btn.primary { background: var(--band-ink); color: var(--band); border-color: var(--band-ink); }
+
+  /* One page-load moment */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero .wrap > * { animation: rise .6s ease-out both; }
+    .hero .wrap > *:nth-child(2) { animation-delay: .08s; }
+    .hero .wrap > *:nth-child(3) { animation-delay: .16s; }
+    .hero .wrap > *:nth-child(4) { animation-delay: .24s; }
+    @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  }
+
+  @media (max-width: 760px) {
+    .projects { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .hero { padding: 4rem 0 3rem; }
+    .feature { padding: 1.4rem 1.25rem; }
+    .diagram { padding: 0.75rem; }
+    .results li { grid-template-columns: 1fr; gap: 0.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Ray Manalang</h1>
+    <p class="role">Enterprise systems leader who still builds</p>
+    <p class="lede">I've spent three decades putting enterprise systems to work, first writing them, then implementing them, then designing them for the largest customers at PeopleSoft, Oracle, and Workday. Today I also build my own software, with AI as a co-developer.</p>
+    <ul class="actions">
+      <li><a class="btn primary" href="mailto:ray.manalang@gmail.com">Email</a></li>
+      <li><a class="btn" href="https://www.linkedin.com/in/ray-manalang-16564a">LinkedIn</a></li>
+      <li><a class="btn" href="https://github.com/ray-manalang">GitHub</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <section aria-labelledby="results">
+    <div class="wrap">
+      <h2 id="results">A few results</h2>
+      <ul class="results">
+        <li><span class="fig">$2B</span><span>New U.S. Federal market opened for Workday, built on the industry strategy and business case I developed.</span></li>
+        <li><span class="fig">80<small>%</small></span><span>Less build and maintenance time after I led a redesign of 10 enterprise demo environments, which also cut AWS cost by 50%.</span></li>
+        <li><span class="fig">50+</span><span>Solution architects I mentor worldwide. I've also managed teams of 10 at Workday and Oracle.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="projects">
+    <div class="wrap">
+      <h2 id="projects">What I'm building</h2>
+
+      <article class="feature">
+        <h3>Investment analysis platform</h3>
+        <p>A three-layer stock analysis tool. A macro gate decides whether market conditions favor putting money to work at all, a factor scanner ranks the S&amp;P 500, and an LLM analyst reviews the top candidates. If the model is unavailable, the app falls back to deterministic scoring instead of failing.</p>
+
+        <figure class="diagram">
+        <svg viewBox="0 0 640 250" role="img" aria-labelledby="diag-title">
+          <title id="diag-title">Architecture: market data sources feed a Python data service through a fallback chain; a Node API stores results in SQLite, calls an LLM analyst with a deterministic fallback, and serves a React interface, all inside one Docker container.</title>
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/>
+            </marker>
+          </defs>
+          <style>
+            .box { fill: var(--surface); stroke: var(--ink); stroke-width: 1.25; }
+            .box-accent { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.25; }
+            .lbl { font: 600 13px "Public Sans", system-ui, sans-serif; fill: var(--ink); }
+            .sub { font: 400 11.5px "Public Sans", system-ui, sans-serif; fill: var(--muted); }
+            .line { stroke: var(--muted); stroke-width: 1.25; fill: none; }
+            .dash { stroke-dasharray: 5 4; }
+            .frame { fill: none; stroke: var(--rule); stroke-width: 1.5; stroke-dasharray: 6 5; }
+          </style>
+
+          <!-- Data sources, outside the container -->
+          <rect class="box" x="8" y="62" width="120" height="96" rx="4"/>
+          <text class="lbl" x="68" y="86" text-anchor="middle">Market data</text>
+          <text class="sub" x="68" y="106" text-anchor="middle">Primary API</text>
+          <text class="sub" x="68" y="122" text-anchor="middle">Two backups</text>
+          <text class="sub" x="68" y="138" text-anchor="middle">Offline fixtures</text>
+
+          <!-- Container frame -->
+          <rect class="frame" x="160" y="14" width="472" height="222" rx="6"/>
+          <text class="sub" x="174" y="34">One Docker container</text>
+
+          <!-- Python data service -->
+          <rect class="box" x="176" y="84" width="120" height="52" rx="4"/>
+          <text class="lbl" x="236" y="106" text-anchor="middle">Python data</text>
+          <text class="lbl" x="236" y="123" text-anchor="middle">service</text>
+
+          <!-- Node API -->
+          <rect class="box-accent" x="334" y="84" width="120" height="52" rx="4"/>
+          <text class="lbl" x="394" y="106" text-anchor="middle">Node / Express</text>
+          <text class="lbl" x="394" y="123" text-anchor="middle">API</text>
+
+          <!-- SQLite -->
+          <rect class="box" x="334" y="172" width="120" height="44" rx="4"/>
+          <text class="lbl" x="394" y="199" text-anchor="middle">SQLite</text>
+
+          <!-- React UI -->
+          <rect class="box" x="494" y="84" width="120" height="52" rx="4"/>
+          <text class="lbl" x="554" y="106" text-anchor="middle">React</text>
+          <text class="lbl" x="554" y="123" text-anchor="middle">interface</text>
+
+          <!-- LLM analyst -->
+          <rect class="box" x="494" y="172" width="120" height="44" rx="4"/>
+          <text class="lbl" x="554" y="192" text-anchor="middle">LLM analyst</text>
+          <text class="sub" x="554" y="208" text-anchor="middle">or rule-based score</text>
+
+          <!-- Connectors -->
+          <path class="line" d="M128 110 H174" marker-end="url(#arrow)"/>
+          <path class="line" d="M296 110 H332" marker-end="url(#arrow)"/>
+          <path class="line" d="M454 110 H492" marker-end="url(#arrow)"/>
+          <path class="line" d="M394 136 V170" marker-end="url(#arrow)"/>
+          <path class="line dash" d="M454 194 H492" marker-end="url(#arrow)"/>
+        </svg>
+          <figcaption>Each data source can fail without taking the app down, and the analyst layer falls back to rule-based scoring.</figcaption>
+        </figure>
+
+        <ul class="chips" aria-label="Built with">
+          <li>React</li><li>TypeScript</li><li>Node</li><li>Express</li><li>Python</li><li>SQLite</li><li>Docker</li>
+        </ul>
+        <p class="note">Covered by 73 unit tests, with architecture, changelog, roadmap, and deployment docs.</p>
+        <a class="btn primary" href="https://github.com/ray-manalang/stock-checker">View the code on GitHub</a>
+      </article>
+
+      <div class="projects">
+        <article class="project">
+          <h3>Content aggregator</h3>
+          <p>Pulls news and video from many free sources into one personalized feed. Each scraper runs in its own container, so one broken source never takes the feed down.</p>
+        </article>
+        <article class="project">
+          <h3>Marketplace data app</h3>
+          <p>Marketplace listings are messy: the same item shows up under a dozen different titles. This web app runs listings through an LLM pipeline that turns them into clean, consistent product records people can actually search.</p>
+        </article>
+        <article class="project">
+          <h3>Resume builder for students</h3>
+          <p>A free resume-writing tool built on templates tailored to each industry and role. It runs completely stateless and collects no user data.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="how" class="how">
+    <div class="wrap">
+      <h2 id="how">How I build</h2>
+      <p>I build with AI as a co-developer across several LLMs, and I keep real engineering rigor around it. Specs and build plans come before code. Everything lives in GitHub. Apps run on fixtures before they touch live data. I write my own test scripts in Playwright and Cypress.</p>
+      <p>Outside AI-assisted work, I've built a lot of automation in Google Apps Script on Google Cloud. I started my career writing loan servicing, cost accounting, and asset management systems, along with many others, in a range of languages and tools.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="career">
+    <div class="wrap">
+      <h2 id="career">Career</h2>
+      <ol class="timeline">
+        <li class="current"><span class="when">2023 - now</span><span class="what">Senior Principal Solution Architect</span>, <span class="where">Workday</span></li>
+        <li><span class="when">2015 - 2023</span><span class="what">Director of Industry Strategy, Education and Government</span>, <span class="where">Workday</span></li>
+        <li><span class="when">2013 - 2015</span><span class="what">Senior Manager, Solution Architecture</span>, <span class="where">Workday</span></li>
+        <li><span class="when">2007 - 2008</span><span class="what">Co-Founder and Managing Partner</span>, <span class="where">PRJ Consulting</span></li>
+        <li><span class="when">2007</span><span class="what">Senior Manager, Applications Consulting</span>, <span class="where">Oracle</span></li>
+        <li><span class="when">2002 - 2006</span><span class="what">Principal Applications Consultant</span>, <span class="where">PeopleSoft and Oracle</span></li>
+        <li><span class="when">1997 - 2002</span><span class="what">Process Specialist</span>, <span class="where">PeopleSoft</span></li>
+        <li><span class="when">1992 - 1997</span><span class="what">Analyst and Programmer</span>, <span class="where">Home Savings of America</span></li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <h2>Contact</h2>
+    <p>Open to roles in enterprise systems, solution architecture, and public sector technology.</p>
+    <ul class="actions">
+      <li><a class="btn primary" href="mailto:ray.manalang@gmail.com">Email</a></li>
+      <li><a class="btn" href="https://www.linkedin.com/in/ray-manalang-16564a">LinkedIn</a></li>
+      <li><a class="btn" href="https://github.com/ray-manalang">GitHub</a></li>
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>
